@@ -1,48 +1,88 @@
+import { Time } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-interface Membership {
+interface Event {
   descripcion: string;
-  nivel: string;
+  fecha: string;
+  horaI: string;
+  horaF: string;
+  estado: string;
+  miembro: string;
+  salon: string;
 }
+
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent {
-
-  memberships: Membership[] = [
-    { descripcion: 'GOLD', nivel: '3' },
-    { descripcion: 'SILVER', nivel: '2' },
-    { descripcion: 'BRONZE', nivel: '1' }
+  events: Event[] = [
+    {
+      descripcion: 'Evento de Prueba',
+      fecha: '2024-11-01',
+      horaI: '10:30',
+      horaF: '10:30',
+      estado: 'Activo',
+      miembro: '1 - Bronze',
+      salon: 'Salón A'
+    },
+    {
+      descripcion: 'Reunión de Trabajo',
+      fecha: '2024-11-02',
+      horaI:'10:30',
+      horaF: '10:30',
+      estado: 'Programado',
+      miembro: '2 - Silver',
+      salon: 'Salón B'
+    },
+    {
+      descripcion: 'Taller de Capacitación',
+      fecha: '2024-11-03',
+      horaI: '10:30',
+      horaF:'10:30',
+      estado: 'Confirmado',
+      miembro: '3 - Gold',
+      salon: 'Salón C'
+    }
   ];
-  membershipForm: FormGroup;
+
+  eventForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.membershipForm = this.fb.group({
+    this.eventForm = this.fb.group({
       descripcion: ['', Validators.required],
-      nivel: ['', Validators.required]
+      fecha: ['', Validators.required],
+      horaI: ['', Validators.required],
+      horaF: ['', Validators.required],
+      estado: ['', Validators.required],
+      miembro: ['', Validators.required],
+      salon: ['', Validators.required]
     });
-  
   }
-    addMembership() {
-      if (this.membershipForm.valid) {
-        this.memberships.push(this.membershipForm.value);
-        this.membershipForm.reset();
-      }
-    }
-  
-    editMembership(index: number) {
-      this.membershipForm.setValue({
-        descripcion: this.memberships[index].descripcion,
-        nivel: this.memberships[index].nivel
-      });
-      this.memberships.splice(index, 1);
-    }
-  
-    deleteMembership(index: number) {
-      this.memberships.splice(index, 1);
+
+  addevent() {
+    if (this.eventForm.valid) {
+      this.events.push(this.eventForm.value);
+      this.eventForm.reset();
     }
   }
 
+  editevent(index: number) {
+    this.eventForm.setValue({
+      descripcion: this.events[index].descripcion,
+      fecha: this.events[index].fecha,
+      horaI: this.events[index].horaI,
+      horaF: this.events[index].horaF,
+      estado: this.events[index].estado,
+      miembro: this.events[index].miembro,
+      salon: this.events[index].salon
+    });
+    this.events.splice(index, 1);
+  }
+
+  deleteevent(index: number) {
+    this.events.splice(index, 1);
+  }
+}

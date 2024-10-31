@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-interface Membership {
+
+interface resource {
   descripcion: string;
-  nivel: string;
+  Nombre: string;
 }
 
 @Component({
@@ -11,37 +12,37 @@ interface Membership {
   styleUrls: ['./resource.component.scss']
 })
 export class ResourceComponent {
-  memberships: Membership[] = [
-    { descripcion: 'GOLD', nivel: '3' },
-    { descripcion: 'SILVER', nivel: '2' },
-    { descripcion: 'BRONZE', nivel: '1' }
+  resources: resource[] = [
+    { descripcion: 'eventos elegantes', Nombre: 'salon 1' },
+    { descripcion: 'eventos elegantes', Nombre: 'salon 2' },
+    { descripcion: 'eventos elegantes', Nombre: 'salon 3' }
   ];
-  membershipForm: FormGroup;
+  
+  resourceForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.membershipForm = this.fb.group({
+    this.resourceForm = this.fb.group({
       descripcion: ['', Validators.required],
-      nivel: ['', Validators.required]
+      Nombre: ['', Validators.required] // Cambié 'nivel' a 'Nombre'
     });
-  
   }
-    addMembership() {
-      if (this.membershipForm.valid) {
-        this.memberships.push(this.membershipForm.value);
-        this.membershipForm.reset();
-      }
-    }
-  
-    editMembership(index: number) {
-      this.membershipForm.setValue({
-        descripcion: this.memberships[index].descripcion,
-        nivel: this.memberships[index].nivel
-      });
-      this.memberships.splice(index, 1);
-    }
-  
-    deleteMembership(index: number) {
-      this.memberships.splice(index, 1);
+
+  addresources() {
+    if (this.resourceForm.valid) {
+      this.resources.push(this.resourceForm.value);
+      this.resourceForm.reset();
     }
   }
 
+  editresources(index: number) {
+    this.resourceForm.setValue({
+      descripcion: this.resources[index].descripcion,
+      Nombre: this.resources[index].Nombre // Cambié 'nivel' a 'Nombre'
+    });
+    this.resources.splice(index, 1); // Considera no eliminar el recurso al editar
+  }
+
+  deleteresources(index: number) {
+    this.resources.splice(index, 1);
+  }
+}

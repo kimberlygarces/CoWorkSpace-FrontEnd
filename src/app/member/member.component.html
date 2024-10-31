@@ -2,27 +2,27 @@
 <div class="container mt-5">
   <div class="row" style="text-align: center; justify-content: center;">
     <div class="col-md-6 mb-6">
-        <!-- Membership Form -->
+        <!-- member Form -->
         <div class="card shadow">
           <div class="card-header bg-success text-white">
             <h3 class="mb-0">Agregar Miembro</h3>
           </div>
           <div class="card-body">
-            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
+            <form [formGroup]="memberForm" (ngSubmit)="addmember()">
               <div class="mb-3">
-                <label for="descripcion" class="form-label">Nombre</label>
-                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" class="form-control" formControlName="nombre" required>
               </div>
               <div class="mb-3">
-                <label for="descripcion" class="form-label">Correo</label>
-                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="correo" class="form-label">Correo</label>
+                <input type="text" id="correo" class="form-control" formControlName="correo" required>
               </div>
               <div class="mb-3">
-                <label for="descripcion" class="form-label">Telefono</label>
-                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="text" id="telefono" class="form-control" formControlName="telefono" required>
               </div>
               <div class="mb-3">
-                <label for="nivel" class="form-label">Membresia</label>
+                <label for="nivel" class="form-label">Membresía</label>
                 <select id="nivel" class="form-select" formControlName="nivel" required>
                   <option value="" disabled selected>Selecciona un nivel</option>
                   <option value="1">1 - Bronze</option>
@@ -31,17 +31,16 @@
                   <option value="4">4 - Gold Plus</option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-outline-success w-100">
-             Agregar
-              </button>
+              <button type="submit" class="btn btn-outline-success w-100">Agregar</button>
             </form>
+            
           </div>
         </div>
       </div>
       
       <div class="col-md-12">
         <br>
-        <!-- Membership Table -->
+        <!-- member Table -->
         <div class="card shadow">
           <div class="card-header bg-success text-white">
             <h3 class="mb-0">Lista de Miembros</h3>
@@ -60,17 +59,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let membership of memberships; let i = index">
-                    <td>{{ membership.descripcion }}</td>
-                    <td>{{ membership.descripcion }}</td>
-                    <td>{{ membership.descripcion }}</td>
+                  <tr *ngFor="let member of members; let i = index">
+                    <td>{{ member.nombre }}</td>
+                    <td>{{ member.correo }}</td>
+                    <td>{{ member.telefono }}</td>
 
-                    <td>{{ membership.nivel }}</td>
+                    <td>{{ member.membresia }}</td>
                     <td>
-                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
+                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editmember(i)">
                         <i class="bi bi-pencil-fill"></i>
                       </button>
-                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
+                      <button class="btn btn-outline-danger btn-sm" (click)="deletemember(i)">
                         <i class="bi bi-trash-fill"></i>
                       </button>
                     </td>

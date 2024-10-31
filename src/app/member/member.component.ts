@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-interface Membership {
-  descripcion: string;
-  nivel: string;
+
+interface member {
+  nombre: string;
+  correo: string; 
+  telefono: string; 
+  membresia: string; 
 }
 
 @Component({
@@ -10,38 +13,47 @@ interface Membership {
   templateUrl: './member.component.html',
   styleUrls: ['./member.component.scss']
 })
-export class MemberComponent {
-  memberships: Membership[] = [
-    { descripcion: 'GOLD', nivel: '3' },
-    { descripcion: 'SILVER', nivel: '2' },
-    { descripcion: 'BRONZE', nivel: '1' }
-  ];
-  membershipForm: FormGroup;
+export class MemberComponent implements OnInit {
+
+  members: member[] = [];
+  memberForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.membershipForm = this.fb.group({
-      descripcion: ['', Validators.required],
-      nivel: ['', Validators.required]
+    this.memberForm = this.fb.group({
+      nombre: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', Validators.required],
+      membresia: ['', Validators.required] 
     });
-  
   }
-    addMembership() {
-      if (this.membershipForm.valid) {
-        this.memberships.push(this.membershipForm.value);
-        this.membershipForm.reset();
-      }
-    }
-  
-    editMembership(index: number) {
-      this.membershipForm.setValue({
-        descripcion: this.memberships[index].descripcion,
-        nivel: this.memberships[index].nivel
-      });
-      this.memberships.splice(index, 1);
-    }
-  
-    deleteMembership(index: number) {
-      this.memberships.splice(index, 1);
+
+  ngOnInit() {
+    // Agregar miembros simulados
+    this.members.push(
+      { membresia:'Bronze', nombre: 'Juan Perez', correo: 'juan.perez@example.com', telefono: '123456789' },
+      { membresia:'Silver', nombre: 'Maria Gomez', correo: 'maria.gomez@example.com', telefono: '987654321' },
+      { membresia:'Gold', nombre: 'Carlos Lopez', correo: 'carlos.lopez@example.com', telefono: '456789123' }
+    );
+  }
+
+  addmember() {
+    if (this.memberForm.valid) {
+      this.members.push(this.memberForm.value);
+      this.memberForm.reset();
     }
   }
 
+  editmember(index: number) {
+    this.memberForm.setValue({
+      nombre: this.members[index].nombre,
+      correo: this.members[index].correo,
+      telefono: this.members[index].telefono,
+      membresia: this.members[index].membresia 
+    });
+    this.members.splice(index, 1); 
+  }
+
+  deletemember(index: number) {
+    this.members.splice(index, 1);
+  }
+}

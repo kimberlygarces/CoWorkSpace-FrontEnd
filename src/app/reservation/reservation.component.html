@@ -1,85 +1,83 @@
 <app-menu></app-menu>
 <div class="container mt-5">
     <div class="row">
-      <div class="col-md-6 mb-4">
-        <!-- Membership Form -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Crear reserva</h3>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
-              <div class="mb-3">
-                <label for="Fecha" class="form-label">Fecha</label>
-                <input type="date" id="descripcion" class="form-control" formControlName="descripcion" required>
-              </div>
+        <div class="col-md-6 mb-4">
+            <!-- reservation Form -->
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Crear reserva</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="reservationForm" (ngSubmit)="addreservation()">
+                        <div class="mb-3">
+                            <label for="Fecha" class="form-label">Fecha</label>
+                            <input type="date" id="Fecha" class="form-control" formControlName="Fecha" required>
+                        </div>
 
-              <div class="mb-3">
-                <label for="Fecha" class="form-label">Hora Inicio</label>
-                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
-              </div>
-              <div class="mb-3">
-                <label for="Fecha" class="form-label">Hora Final</label>
-                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
-              </div>
-              <div class="mb-3">
-                <label for="nivel" class="form-label">Miembro:</label>
-                <select id="nivel" class="form-select" formControlName="nivel" required>
-                  <option value="" disabled selected>Selecciona un Miembro</option>
-                  <option value="1">Juana</option>
-                  <option value="2">Maria</option>
-                  <option value="3">Fernanda</option>
-                  <option value="4">Sofia</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-outline-success w-100">
-             Agregar
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6">
-        <!-- Membership Table -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Reservas activas</h3>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Hora Inicio</th>
-                    <th>Hora Fin</th>
-                    <th>Miembro</th>
-                    <th>Acciones</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let membership of memberships; let i = index">
-                    <td>{{ membership.descripcion }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-
-                    <td>
-                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        <div class="mb-3">
+                            <label for="horaI" class="form-label">Hora Inicio</label>
+                            <input type="time" id="horaI" class="form-control" formControlName="horaI" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="horaF" class="form-label">Hora Final</label>
+                            <input type="time" id="horaF" class="form-control" formControlName="horaF" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idMiembro" class="form-label">Miembro:</label>
+                            <select id="idMiembro" class="form-select" formControlName="idMiembro" required>
+                                <option value="" disabled selected>Selecciona un Miembro</option>
+                                <option value="1">Juana</option>
+                                <option value="2">Maria</option>
+                                <option value="3">Fernanda</option>
+                                <option value="4">Sofia</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success w-100">
+                            Agregar
+                        </button>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <div class="col-md-6">
+            <!-- reservation Table -->
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Reservas activas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora Inicio</th>
+                                    <th>Hora Fin</th>
+                                    <th>Miembro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let reservation of reservations; let i = index">
+                                    <td>{{ reservation.Fecha }}</td>
+                                    <td>{{ reservation.horaI }}</td>
+                                    <td>{{ reservation.horaF }}</td>
+                                    <td>{{ reservation.idMiembro }}</td>
+                                    <td>
+                                        <button class="btn btn-outline-warning btn-sm me-2" (click)="editreservation(i)">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm" (click)="deletereservation(i)">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>

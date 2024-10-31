@@ -1,46 +1,65 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-interface Membership {
+interface Workspace {
+  nombreSalon: string;
   descripcion: string;
-  nivel: string;
+  maxAsistentes: number; // Changed to number for better type safety
+  disponibilidad: string;
+  membership: string;
 }
+
 @Component({
   selector: 'app-workspace',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
 export class WorkspaceComponent {
-  memberships: Membership[] = [
-    { descripcion: 'GOLD', nivel: '3' },
-    { descripcion: 'SILVER', nivel: '2' },
-    { descripcion: 'BRONZE', nivel: '1' }
+  Workspaces: Workspace[] = [
+    { nombreSalon: 'Salón A', descripcion: 'Salón amplio con proyector', maxAsistentes: 50, disponibilidad: 'Disponible', membership: '3' },
+    { nombreSalon: 'Salón B', descripcion: 'Ideal para reuniones pequeñas', maxAsistentes: 20, disponibilidad: 'No disponible', membership: '2' },
+    { nombreSalon: 'Salón C', descripcion: 'Espacio moderno y versátil', maxAsistentes: 30, disponibilidad: 'Disponible', membership: '1' },
   ];
-  membershipForm: FormGroup;
+
+  WorkspaceForm: FormGroup;
+  editingIndex: number | null = null;
 
   constructor(private fb: FormBuilder) {
-    this.membershipForm = this.fb.group({
+    this.WorkspaceForm = this.fb.group({
+      nombreSalon: ['', Validators.required],
       descripcion: ['', Validators.required],
-      nivel: ['', Validators.required]
+      maxAsistentes: ['', [Validators.required, Validators.min(1)]], // Added validation for a minimum value
+      disponibilidad: ['', Validators.required],
+      membership: ['', Validators.required]
     });
-  
   }
-    addMembership() {
-      if (this.membershipForm.valid) {
-        this.memberships.push(this.membershipForm.value);
-        this.membershipForm.reset();
+
+  addWorkspace() {
+    if (this.WorkspaceForm.valid) {
+      if (this.editingIndex !== null) {
+        // Update existing workspace
+        this.Workspaces[this.editingIndex] = this.WorkspaceForm.value;
+        this.editingIndex = null; // Reset editing index
+      } else {
+        // Add new workspace
+        this.Workspaces.push(this.WorkspaceForm.value);
       }
-    }
-  
-    editMembership(index: number) {
-      this.membershipForm.setValue({
-        descripcion: this.memberships[index].descripcion,
-        nivel: this.memberships[index].nivel
-      });
-      this.memberships.splice(index, 1);
-    }
-  
-    deleteMembership(index: number) {
-      this.memberships.splice(index, 1);
+      this.WorkspaceForm.reset();
     }
   }
+
+  editWorkspace(index: number) {
+    this.editingIndex = index; // Set editing index
+    this.WorkspaceForm.setValue({
+      nombreSalon: this.Workspaces[index].nombreSalon,
+      descripcion: this.Workspaces[index].descripcion,
+      maxAsistentes: this.Workspaces[index].maxAsistentes,
+      disponibilidad: this.Workspaces[index].disponibilidad,
+      membership: this.Workspaces[index].membership
+    });
+  }
+
+  deleteWorkspace(index: number) {
+    this.Workspaces.splice(index, 1);
+  }
+}

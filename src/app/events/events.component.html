@@ -1,39 +1,39 @@
 <app-menu></app-menu>
 <div class="container mt-5">
   <div class="row" style="text-align: center; justify-content: center;">
-    <div class="col-md-12 mb-6"  >
-      <!-- Membership Form -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Agregar Evento</h3>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
-              <div class="row">
+    <div class="col-md-12 mb-6">
+      <!-- Event Form -->
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0">Agregar Evento</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="eventForm" (ngSubmit)="addevent()">
+            <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="descripcion" class="form-label">Descripción:</label>
                 <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="descripcion" class="form-label">Fecha:</label>
-                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="fecha" class="form-label">Fecha:</label>
+                <input type="date" id="fecha" class="form-control" formControlName="fecha" required>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="descripcion" class="form-label">Hora Inicio:</label>
-                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="horaI" class="form-label">Hora Inicio:</label>
+                <input type="time" id="horaI" class="form-control" formControlName="horaI" required>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="descripcion" class="form-label">Hora Fin:</label>
-                <input type="date" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="horaF" class="form-label">Hora Fin:</label>
+                <input type="time" id="horaF" class="form-control" formControlName="horaF" required>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="descripcion" class="form-label">Estado:</label>
-                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+                <label for="estado" class="form-label">Estado:</label>
+                <input type="text" id="estado" class="form-control" formControlName="estado" required>
               </div>
               <div class="mb-3 col-md-6">
                 <label for="nivel" class="form-label">Miembro:</label>
-                <select id="nivel" class="form-select" formControlName="nivel" required>
-                  <option value="" disabled selected>Selecciona un nivel</option>
+                <select id="nivel" class="form-select" formControlName="miembro" required>
+                  <option value="" disabled selected>Selecciona un miembro</option>
                   <option value="1">1 - Bronze</option>
                   <option value="2">2 - Silver</option>
                   <option value="3">3 - Gold</option>
@@ -41,72 +41,69 @@
                 </select>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="nivel" class="form-label">Salon:</label>
-                <select id="nivel" class="form-select" formControlName="nivel" required>
-                  <option value="" disabled selected>Selecciona un nivel</option>
-                  <option value="1">1 - Bronze</option>
-                  <option value="2">2 - Silver</option>
-                  <option value="3">3 - Gold</option>
-                  <option value="4">4 - Gold Plus</option>
+                <label for="salon" class="form-label">Salón:</label>
+                <select id="salon" class="form-select" formControlName="salon" required>
+                  <option value="" disabled selected>Selecciona un salón</option>
+                  <option value="1">Salón A</option>
+                  <option value="2">Salón B</option>
+                  <option value="3">Salón C</option>
+                  <option value="4">Salón D</option>
                 </select>
               </div>
             </div>
-              <button type="submit" class="btn btn-outline-success w-100">
-             Agregar
-              </button>
-            </form>
-          </div>
+            <button type="submit" class="btn btn-outline-success w-100">
+              Agregar
+            </button>
+          </form>
         </div>
       </div>
-      
-      <div class="col-md-12">
-        <br>
-        <!-- Membership Table -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Lista de Eventos</h3>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Descripción</th>
-                    <th>Fecha</th>
-                    <th>Hora Inicio</th>
-                    <th>Hora Fin</th>
-                    <th>Estado</th>
-                    <th>Miembro</th>
-                    <th>Salon</th>
+    </div>
 
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let membership of memberships; let i = index">
-                    <td>{{ membership.descripcion }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-                    <td>{{ membership.nivel }}</td>
-
-
-                    <td>
-                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+    <div class="col-md-12">
+      <br>
+      <!-- Event Table -->
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0">Lista de Eventos</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
+                  <th>Hora Inicio</th>
+                  <th>Hora Fin</th>
+                  <th>Estado</th>
+                  <th>Miembro</th>
+                  <th>Salón</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let event of events; let i = index">
+                  <td>{{ event.descripcion }}</td>
+                  <td>{{ event.fecha }}</td>
+                  <td>{{ event.horaI }}</td>
+                  <td>{{ event.horaF }}</td>
+                  <td>{{ event.estado }}</td>
+                  <td>{{ event.miembro }}</td>
+                  <td>{{ event.salon }}</td>
+                  <td>
+                    <button class="btn btn-outline-warning btn-sm me-2" (click)="editevent(i)">
+                      <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" (click)="deleteevent(i)">
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
