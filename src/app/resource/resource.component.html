@@ -1,0 +1,73 @@
+<app-menu></app-menu>
+<div class="container mt-5" >
+    <div class="row" style="text-align: center; justify-content: center;">
+      <div class="col-md-8 mb-6"  >
+        <!-- Membership Form -->
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">crear recurso</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Nombre</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+      
+           
+              <button type="submit" class="btn btn-outline-success w-100">
+             Agregar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <br>
+        <!-- Membership Table -->
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Mis recursos</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Mombre</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Membresia</th>
+                    <th>Acciones</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let membership of memberships; let i = index">
+                    <td>{{ membership.descripcion }}</td>
+                    <td>{{ membership.descripcion }}</td>
+                    <td>{{ membership.descripcion }}</td>
+
+                    <td>{{ membership.nivel }}</td>
+                    <td>
+                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

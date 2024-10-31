@@ -1,0 +1,92 @@
+<app-menu></app-menu>
+<div class="container mt-5">
+  <div class="row" style="text-align: center; justify-content: center;">
+    <div class="col-md-8 mb-6"  >
+      <!-- Membership Form -->
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Agregar Salón (Workspace)</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Nombre del salón</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Número maximo de asistentes</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Disponibilidad</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="nivel" class="form-label">membership</label>
+                <select id="nivel" class="form-select" formControlName="nivel" required>
+                  <option value="" disabled selected>Selecciona un nivel</option>
+                  <option value="1">1 - Bronze</option>
+                  <option value="2">2 - Silver</option>
+                  <option value="3">3 - Gold</option>
+                  <option value="4">4 - Gold Plus</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-outline-success w-100">
+             Agregar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <!-- Membership Table -->
+         <br>
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Lista de salones</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Nombre del salón</th>
+                    <th>Descripcion</th>
+                    <th>Número maxde asistentes</th>
+                    <th>Disponibilidad</th>
+                    <th>membership</th>
+                    <th>Acciones</th>
+
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let membership of memberships; let i = index">
+                    <td>{{ membership.descripcion }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+
+                    <td>
+                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

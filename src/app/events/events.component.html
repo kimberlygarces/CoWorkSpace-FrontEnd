@@ -1,0 +1,112 @@
+<app-menu></app-menu>
+<div class="container mt-5">
+  <div class="row" style="text-align: center; justify-content: center;">
+    <div class="col-md-12 mb-6"  >
+      <!-- Membership Form -->
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Agregar Evento</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="membershipForm" (ngSubmit)="addMembership()">
+              <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="descripcion" class="form-label">Fecha:</label>
+                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="descripcion" class="form-label">Hora Inicio:</label>
+                <input type="time" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="descripcion" class="form-label">Hora Fin:</label>
+                <input type="date" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="descripcion" class="form-label">Estado:</label>
+                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="nivel" class="form-label">Miembro:</label>
+                <select id="nivel" class="form-select" formControlName="nivel" required>
+                  <option value="" disabled selected>Selecciona un nivel</option>
+                  <option value="1">1 - Bronze</option>
+                  <option value="2">2 - Silver</option>
+                  <option value="3">3 - Gold</option>
+                  <option value="4">4 - Gold Plus</option>
+                </select>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="nivel" class="form-label">Salon:</label>
+                <select id="nivel" class="form-select" formControlName="nivel" required>
+                  <option value="" disabled selected>Selecciona un nivel</option>
+                  <option value="1">1 - Bronze</option>
+                  <option value="2">2 - Silver</option>
+                  <option value="3">3 - Gold</option>
+                  <option value="4">4 - Gold Plus</option>
+                </select>
+              </div>
+            </div>
+              <button type="submit" class="btn btn-outline-success w-100">
+             Agregar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <br>
+        <!-- Membership Table -->
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Lista de Eventos</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Estado</th>
+                    <th>Miembro</th>
+                    <th>Salon</th>
+
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let membership of memberships; let i = index">
+                    <td>{{ membership.descripcion }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+                    <td>{{ membership.nivel }}</td>
+
+
+                    <td>
+                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editMembership(i)">
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="deleteMembership(i)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
