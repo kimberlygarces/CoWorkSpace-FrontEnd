@@ -1,84 +1,68 @@
 <app-menu></app-menu>
-<div class="container mt-5">
-  <div class="row" style="text-align: center; justify-content: center;">
-    <div class="col-md-6 mb-6">
-        <!-- member Form -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Agregar Miembro</h3>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="memberForm" (ngSubmit)="addmember()">
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" class="form-control" formControlName="nombre" required>
-              </div>
-              <div class="mb-3">
-                <label for="correo" class="form-label">Correo</label>
-                <input type="text" id="correo" class="form-control" formControlName="correo" required>
-              </div>
-              <div class="mb-3">
-                <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" id="telefono" class="form-control" formControlName="telefono" required>
-              </div>
-              <div class="mb-3">
-                <label for="nivel" class="form-label">Membresía</label>
-                <select id="nivel" class="form-select" formControlName="nivel" required>
-                  <option value="" disabled selected>Selecciona un nivel</option>
-                  <option value="1">1 - Bronze</option>
-                  <option value="2">2 - Silver</option>
-                  <option value="3">3 - Gold</option>
-                  <option value="4">4 - Gold Plus</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-outline-success w-100">Agregar</button>
-            </form>
-            
-          </div>
-        </div>
+<div class="container">
+  <form [formGroup]="memberForm" (ngSubmit)="addMember()" class="card member-form">
+    <div class="card shadow">
+    <div class="card-header bg-success text-white">
+      <h2>Formulario de Miembro</h2>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input id="nombre" formControlName="nombre" class="form-control" />
       </div>
-      
-      <div class="col-md-12">
-        <br>
-        <!-- member Table -->
-        <div class="card shadow">
-          <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Lista de Miembros</h3>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Mombre</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Membresia</th>
-                    <th>Acciones</th>
+      <div class="form-group">
+        <label for="email" class="form-label">Correo</label>
+        <input id="email" formControlName="email" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="numeroTelefono" class="form-label">Número de Teléfono</label>
+        <input id="numeroTelefono" formControlName="numeroTelefono" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="membershipId" class="form-label">ID de Membresía</label>
+        <input id="membershipId" formControlName="membershipId" class="form-control" />
+      </div>
+      <br>
+      <button type="submit" class="btn btn-outline-success w-100">Agregar Miembro</button>
+    </div>
+  </div>
+  </form>
 
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let member of members; let i = index">
-                    <td>{{ member.nombre }}</td>
-                    <td>{{ member.correo }}</td>
-                    <td>{{ member.telefono }}</td>
 
-                    <td>{{ member.membresia }}</td>
-                    <td>
-                      <button class="btn btn-outline-warning btn-sm me-2" (click)="editmember(i)">
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                      <button class="btn btn-outline-danger btn-sm" (click)="deletemember(i)">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+
+  <div class="card shadow">
+    <div class="card-header bg-success text-white">
+      <h3 class="mb-0">Lista de Miembros</h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Número de Teléfono</th>
+              <th>ID de Membresía</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let member of members; let i = index" class="member-row">
+              <td>{{ member.nombre }}</td>
+              <td>{{ member.email }}</td>
+              <td>{{ member.numeroTelefono }}</td>
+              <td>{{ member.membershipId }}</td>
+              <td>
+                <button class="btn btn-outline-warning btn-sm me-2" (click)="editMember(i)">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteMember(member)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

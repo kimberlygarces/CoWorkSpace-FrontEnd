@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar esto
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { EventsComponent } from './events/events.component';
 import { ResourceComponent } from './resource/resource.component';
 import { MemberComponent } from './member/member.component';
 import { MembershipComponent } from './membership/membership.component';
+
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { MembershipComponent } from './membership/membership.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    HttpClientModule 
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

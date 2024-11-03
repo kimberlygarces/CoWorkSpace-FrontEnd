@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Member } from '../models/Models';
+import { MemberService } from '../services/member.service';
 
-interface member {
-  nombre: string;
-  correo: string; 
-  telefono: string; 
-  membresia: string; 
-}
 
 @Component({
   selector: 'app-member',
@@ -14,46 +10,66 @@ interface member {
   styleUrls: ['./member.component.scss']
 })
 export class MemberComponent implements OnInit {
-
-  members: member[] = [];
+  members: Member[] = [];
   memberForm: FormGroup;
+  editingIndex: number | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private memberService: MemberService) {
     this.memberForm = this.fb.group({
       nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', Validators.required],
-      membresia: ['', Validators.required] 
+      email: ['', [Validators.required, Validators.email]],
+      numeroTelefono: ['', Validators.required],
+      membershipId: ['', Validators.required]
     });
   }
 
   ngOnInit() {
-    // Agregar miembros simulados
-    this.members.push(
-      { membresia:'Bronze', nombre: 'Juan Perez', correo: 'juan.perez@example.com', telefono: '123456789' },
-      { membresia:'Silver', nombre: 'Maria Gomez', correo: 'maria.gomez@example.com', telefono: '987654321' },
-      { membresia:'Gold', nombre: 'Carlos Lopez', correo: 'carlos.lopez@example.com', telefono: '456789123' }
-    );
+    this.loadMembers();
   }
 
-  addmember() {
+  loadMembers() {
+    this.memberService.findAllMembers().subscribe((data: Member[]) => {
+      this.members = data;
+    });
+  }
+
+  addMember() {
     if (this.memberForm.valid) {
-      this.members.push(this.memberForm.value);
-      this.memberForm.reset();
+      const memberData = this.memberForm.value;
+      if (this.editingIndex !== null) {
+        memberData.id = this.members[this.editingIndex].id;
+        this.memberService.updateMember(memberData).subscribe((updatedMember: Member) => {
+          this.members[this.editingIndex!] = updatedMember;
+          this.editingIndex = null;
+          this.memberForm.reset();
+        });
+      } else {
+        this.memberService.createMember(memberData).subscribe((newMember: Member) => {
+          this.members.push(newMember);
+          this.memberForm.reset();
+        });
+      }
     }
   }
 
-  editmember(index: number) {
+  editMember(index: number) {
+    const member = this.members[index];
     this.memberForm.setValue({
-      nombre: this.members[index].nombre,
-      correo: this.members[index].correo,
-      telefono: this.members[index].telefono,
-      membresia: this.members[index].membresia 
+      nombre: member.nombre || '',
+      email: member.email || '',
+      numeroTelefono: member.numeroTelefono || '',
+      membershipId: member.membershipId !== undefined ? member.membershipId : null
     });
-    this.members.splice(index, 1); 
+    this.editingIndex = index;
   }
 
-  deletemember(index: number) {
-    this.members.splice(index, 1);
+  deleteMember(member: Member) {
+    if (member.id !== undefined && member.id !== null) {
+      this.memberService.deleteMember(member.id).subscribe(() => {
+        this.members = this.members.filter(m => m.id !== member.id);
+      });
+    } else {
+      console.error('Member ID is undefined or null');
+    }
   }
 }
